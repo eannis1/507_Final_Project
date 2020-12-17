@@ -3,11 +3,9 @@ import requests
 import json
 import time
 import sqlite3
-#import re
-#import csv
 import os
-#import numpy as np
 import plotly.graph_objects as go
+from flask import Flask, render_template, request
 
 os.chdir('/Users/erinannis/Documents/UMSI/Fall 2020/SI 507/Final Project')
 
@@ -147,14 +145,16 @@ def create_db():
     create_techniques_sql = '''
         CREATE TABLE IF NOT EXISTS "Techniques" (
             "Id"    INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-            "Technique" TEXT NOT NULL UNIQUE
+            "Technique" TEXT NOT NULL UNIQUE,
+            "Website"   TEXT
         );
     '''
 
     create_printsellers_sql = '''
         CREATE TABLE IF NOT EXISTS "Printsellers" (
             "Id"    INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-            "Name"  TEXT NOT NULL UNIQUE
+            "Name"  TEXT NOT NULL UNIQUE,
+            "Website" TEXT
         );
     '''
     create_prints_sql = '''
@@ -200,23 +200,13 @@ def load_tables():
 
     insert_printsellers = '''
         INSERT OR IGNORE INTO Printsellers
-        VALUES (NULL, ?)
+        VALUES (NULL, ?, 'http://www.james-gillray.org/printsellers.html')
     '''
 
     insert_techniques = '''
         INSERT OR IGNORE INTO Techniques
-        VALUES (NULL, ?)
+        VALUES (NULL, ?, 'http://www.james-gillray.org/tech_printing.html')
     '''
-
-    #select_technique_id = '''
-    #    SELECT Id FROM Techniques
-    #    WHERE Technique = ?
-    #'''
-
-    #select_printseller_id = '''
-    #    SELECT Id from Printsellers
-    #    WHERE Name = ?
-    #'''
 
     insert_prints = '''
         INSERT INTO Prints
@@ -303,22 +293,12 @@ def load_tables():
         cur.execute(insert_printsellers, [name])
         printseller_id = cur.lastrowid
         printseller_ids.append(printseller_id)
-        #cur.execute(select_printseller_id, [name])
-        #res = cur.fetchone()
-        #printseller_id = None
-        #if res is not None:
-        #    printseller_id = res[0]
     
     technique_ids = []
     for technique in techniques:
         cur.execute(insert_techniques, [technique])
         technique_id = cur.lastrowid
         technique_ids.append(technique_id)
-        #cur.execute(select_technique_id, [technique])
-        #res = cur.fetchone()
-        #technique_id = None
-        #if res is not None:
-        #    technique_id = res[0]
 
     for name, date, technique_id, printseller_id, description, url in zip(print_names, print_dates, technique_ids, printseller_ids, print_descriptions, print_urls):
         cur.execute(insert_prints, [
@@ -375,6 +355,5 @@ create_scatter_plot(area, population, mode)
 
 # Step 7: Interactive commands
 if __name__ == "__main__":
-    #create_db()
-    #load_tables()
-    pass
+    create_db()
+    load_tables()

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {background-color: #EEEADC;}
+    .header {
+        padding: 60x;
+        text-align: center;
+        background: #DED6BA;
+    }
+    h1 {color: black; font-family: Garamond, Times, serif; font-size: 300%;}
+    h2 {color: black; font-family: Garamond, Times, serif; font-size: 200%;}
+    p {color: black; font-family: Garamond, Times, serif; font-size: 150%}
+</style>
+<meta charset="utf8"/>
+<title>Prints Home</title>
+</head>
+
+<div class="header">
+    <hr>
+    <h1>Charts</h1>
+    <hr>
+</div>
+
+<body>
+    <form action="/plot_results" method="POST">
+    <p>
+    <h2>Sort by:</h2> <br/>
+
+    <input type='radio' name='plot_sort'
+        value='Prints per Technique' checked='checked'/> Prints per Technique
+    </br>
+    </br>
+    <input type='radio' name='plot_sort'
+        value='Prints per Printseller'/> Prints per Printseller
+    </br>
+    </br>
+    <input type='radio' name='plot_sort'
+        value='Prints per Date'/> Prints per Date
+    </br>
+    </br>
+</p>
+<input type='submit' value='Get Results'/>
+</form>
+</body>
+</html>

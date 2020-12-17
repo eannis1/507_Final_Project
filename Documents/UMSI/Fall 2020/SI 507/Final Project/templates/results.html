@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF8"/>
+    <style>
+        .header {
+        padding: 60x;
+        text-align: center;
+        background: #DED6BA;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        body {background-color: #EEEADC;}
+        th {color: black; font-style: strong; font-family: Garamond, Times, serif; font-size: 150%;}
+        td {color: black; font-family: Garamond, Times, serif; font-size: 100%}
+    </style>
+    <title>Print Sorting: Results</title>
+</head>
+
+<div class="header">
+    <hr>
+    <h1>Results</h1>
+    <hr>
+</div>
+
+<body>
+    <table>
+        <tr>
+            <th>{{sort}}</th> <!--from views.html and Final_Project_Flask.py-->
+            <th>For More Information</th>
+        </tr>
+        {% for row in results %} <!--from Final_Project_Flask.py-->
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+        </tr>
+        {% endfor %}
+        <br>
+        <br>
+        <br>
+        <p>Return <a href='/'>home</a>. <!--this is a return to main page statement--></p>
+    </body>
+</html>
